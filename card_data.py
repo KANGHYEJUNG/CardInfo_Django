@@ -8,7 +8,7 @@ django.setup()
 from card.models import Card
 
 # KB 국민카드 전체 링크 목록 (132 cards)
-urlList = ['https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01790&categoryCode=L0086&sGroupCode=2',
+urlList = ['https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01790&categoryCode=L0086&sGroupCode=2', #check cards (58cards)
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01772&categoryCode=L0087&sGroupCode=2',
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01788&categoryCode=L0086&sGroupCode=2',
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01946&categoryCode=L0087&sGroupCode=2',
@@ -65,8 +65,8 @@ urlList = ['https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01992&categoryCode=L0096&sGroupCode=2',
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01994&categoryCode=L0097&sGroupCode=2',
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01706&categoryCode=L0096&sGroupCode=2',
-           'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01710&categoryCode=L0097&sGroupCode=2', #여기까지 체크카드
-           'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=09194&categoryCode=L0049&sGroupCode=1', #여기부터 신용카드
+           'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01710&categoryCode=L0097&sGroupCode=2',
+           'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=09194&categoryCode=L0049&sGroupCode=1', #credit cards (74cards)
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=09243&categoryCode=L0048&sGroupCode=1',
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=09251&categoryCode=L0048&sGroupCode=1',
            'https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=04350&categoryCode=L0048&sGroupCode=1',
@@ -143,6 +143,7 @@ urlList = ['https://card.kbcard.com/CXPRICAC0076.cms?mainCC=a&cooperationcode=01
 
 
 
+
 # 카드 혜택 분류 기준
 # 1 : 외식/eatout, 2 : 생활/living, 3 : 쇼핑/shopping, 4 : 주유/refuel, 5 : 통신/communicate, 6 : 해외/overseas, 7 : 문화/culture
 eatout = ['외식', '커피', '패스트푸드', '패밀리레스토랑', '제과', '아이스크림', '커피빈', '아웃백',
@@ -210,7 +211,7 @@ for url in urlList:
 
     benefitList = ""  # benefitList : 혜택을 문자열로 저장
     benefitCode = []  # benefitCode : 혜택 코드를 문자열로 저장
-    codeNum = "" #혜택 코드를 문자열로 변환해서 저장할 변수
+    codeNum = "" #codeNum : benefitCode를 문자열로 변환해서 저장할 변수
     num = 0  # num : 혜택을 나열할 때 쉼표를 표시하기 위해 해당 혜택이 첫번째인지 아닌지를 확인하는 수
 
     for benefit in benefits:
@@ -221,7 +222,7 @@ for url in urlList:
         else:
             benefitList += ', ' + benefit.text
 
-        # 혜택이 해당되는 분야를 찾아 특정 코드 받아오기기
+        # 혜택 저장 및 분류 후 혜택 코드 설정
         benefitCode += benefitCheck(benefit.text)
         benefitCode = list(set(benefitCode))
         benefitCode.sort()
